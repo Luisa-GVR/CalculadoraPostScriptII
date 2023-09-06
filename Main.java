@@ -12,13 +12,50 @@ public class Main {
 
         String[] stackSentence = input.split(" ");
 
-        Stack <String> stringStack = new Stack<>();
-
-        for (String word : stackSentence) {
-            System.out.println(word);
-
-            stringStack.push(word);
+        for (int i = 0; i < stackSentence.length; i++) {
+            stackSentence[i] = stackSentence[i].toLowerCase();
         }
 
+        Stack<String> stringStack = new Stack<>();
+        boolean entrar;
+        int var1;
+        int var2;
+
+        for (String word : stackSentence) {
+            entrar = true; //reset
+
+            if (word.equals("add")) { //suma
+                entrar = false;
+                var1 = Integer.parseInt(stringStack.pop());
+                var2 = Integer.parseInt(stringStack.pop());
+                stringStack.push(String.valueOf(var1 + var2));
+
+            }
+
+            if (word.equals("div")) {
+                entrar = false;
+                var1 = Integer.parseInt(stringStack.pop());
+                var2 = Integer.parseInt(stringStack.pop());
+                stringStack.push(String.valueOf(var1 / var2));
+
+            }
+
+            if (word.equals("mul")) {
+                entrar = false;
+                var1 = Integer.parseInt(stringStack.pop());
+                var2 = Integer.parseInt(stringStack.pop());
+                stringStack.push(String.valueOf(var1 * var2));
+
+            }
+            if (entrar) {
+                stringStack.push(word);
+
+            }
+
+
+        }
+
+        System.out.println(stringStack.pop());
     }
+
 }
