@@ -18,35 +18,59 @@ public class Main {
 
         Stack<String> stringStack = new Stack<>();
         boolean entrar;
-        int var1;
-        int var2;
+        double var1;
+        double var2;
 
         for (String word : stackSentence) {
             entrar = true; //reset
 
             if (word.equals("add")) { //suma
                 entrar = false;
-                var1 = Integer.parseInt(stringStack.pop());
-                var2 = Integer.parseInt(stringStack.pop());
+                var1 = Double.parseDouble(stringStack.pop());
+                var2 = Double.parseDouble(stringStack.pop());
                 stringStack.push(String.valueOf(var1 + var2));
 
             }
-
-            if (word.equals("div")) {
+            if (word.equals("sub")) { //resta
                 entrar = false;
-                var1 = Integer.parseInt(stringStack.pop());
-                var2 = Integer.parseInt(stringStack.pop());
-                stringStack.push(String.valueOf(var1 / var2));
+                var1 = Double.parseDouble(stringStack.pop());
+                var2 = Double.parseDouble(stringStack.pop());
+                stringStack.push(String.valueOf(var2 - var1));
 
             }
 
-            if (word.equals("mul")) {
+            if (word.equals("div")) { //division
                 entrar = false;
-                var1 = Integer.parseInt(stringStack.pop());
-                var2 = Integer.parseInt(stringStack.pop());
+                var1 = Double.parseDouble(stringStack.pop());
+                var2 = Double.parseDouble(stringStack.pop());
+                stringStack.push(String.valueOf(var2 / var1 ));
+
+            }
+
+            if (word.equals("mul")) { //multiplicacion
+                entrar = false;
+                var1 = Double.parseDouble(stringStack.pop());
+                var2 = Double.parseDouble(stringStack.pop());
                 stringStack.push(String.valueOf(var1 * var2));
 
             }
+
+            if (word.equals("dup")) { //duplicar
+                entrar = false;
+                var1 = Double.parseDouble(stringStack.pop());
+                stringStack.push(String.valueOf(var1));
+                stringStack.push(String.valueOf(var1));
+            }
+
+            if (word.equals("exch")) { //intercambiar
+                entrar = false;
+                var1 = Double.parseDouble(stringStack.pop());
+                var2 = Double.parseDouble(stringStack.pop());
+                stringStack.push(String.valueOf(var1));
+                stringStack.push(String.valueOf(var2));
+            }
+
+
             if (entrar) {
                 stringStack.push(word);
 
