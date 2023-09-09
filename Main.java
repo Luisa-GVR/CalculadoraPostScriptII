@@ -1,6 +1,22 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Main {
+    private static BufferedWriter registro;
+    private static void registrarBitacora(String mensaje){
+        try{
+            SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String fechaHora = fecha.format(new Date());
+            registro = new BufferedWriter(new FileWriter("bitacora.txt",true));
+            registro.write(fechaHora + " - " + mensaje + "\n");
+            registro.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -19,6 +35,9 @@ public class Main {
 
         boolean valorNoAceptado = false;
 
+
+        try{
+            registro = new BufferedWriter(new FileWriter("bitacora.txt",true));
         while (exit) {
             System.out.println("Escribe el calculo en postcript");
             String input = sc.nextLine();
@@ -104,12 +123,13 @@ public class Main {
 
 
                     if (word.equals("pstack")){ // Imprime
-
-                        if (stringStack.peek() != null) {
+                        if (!stringStack.isEmpty()) {
                             System.out.println(stringStack.peek());
-                        } else if (stringStack.peek().equals("pstack")){
+                        } else {
+                            registrarBitacora("No hay valores en la pila");
                             System.out.println("No hay valores en la pila");
                         }
+
                     }
 
                     if (definiciones.containsKey(word)){
@@ -139,7 +159,7 @@ public class Main {
                             valorYaDefinido = false;
                             definiendoValor = false;
                         } else {
-                            System.out.println("No agrego 'def' a la hora de definir su valor");
+                            registrarBitacora("No agrego 'def' a la hora de definir su valor");
                             valorYaDefinido = false;
                             definiendoValor = false;
                             // Restaurar el HashMap temporal
@@ -148,6 +168,17 @@ public class Main {
                         }
                     }
                 }
+            }
+        }
+        } catch (IOException e){
+            e.printStackTrace();;
+        } finally {
+            try{
+                if (registro != null){
+                    registro.close();
+                }
+            } catch (IOException e){
+                e.printStackTrace();
             }
         }
     }
