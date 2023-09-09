@@ -218,7 +218,8 @@ public class Main {
                     } else
 
                     if (definiciones.containsKey(word)){
-                        System.out.println(definiciones.get(word));
+                        word= String.valueOf(definiciones.get(word));
+
 
                     }
                     if (Numerico(word)) {
