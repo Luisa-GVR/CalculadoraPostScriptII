@@ -33,12 +33,13 @@ public class Main {
         HashMap<String, Double> definiciones = new HashMap<>();
         HashMap<String, Double> tempDefiniciones = new HashMap<>();
 
-        boolean valorNoAceptado = false;
+
 
 
         try{
             registro = new BufferedWriter(new FileWriter("bitacora.txt",true));
         while (exit) {
+            boolean operacionRealizada = false;
             System.out.println("Escribe el calculo en postcript");
             String input = sc.nextLine();
 
@@ -56,56 +57,131 @@ public class Main {
                 if (!definiendoValor) {
                     if (word.equals("add")) { //suma
                         entrar = false;
-                        var1 = Double.parseDouble(stringStack.pop());
+                        if (stringStack.size() >=2){
+                            if (Numerico(stringStack.peek()) && Numerico(stringStack.get(stringStack.size() - 2))) {
+                                var1 = Double.parseDouble(stringStack.pop());
                         var2 = Double.parseDouble(stringStack.pop());
                         stringStack.push(String.valueOf(var1 + var2));
-
+                        operacionRealizada = true;
+                        }else {
+                            registrarBitacora("No hay suficientes números en la pila para realizar la operación 'add'");
+                            System.out.println("No hay suficientes números en la pila para realizar la operación 'add' - Error guardado en la bitacora");
+                            }
+                        }else {
+                            registrarBitacora("No hay suficientes números en la pila para realizar la operación 'add'");
+                            System.out.println("No hay suficientes números en la pila para realizar la operación 'add' - Error guardado en la bitacora");
+                        }
                     }
                     if (word.equals("sub")) { //resta
                         entrar = false;
+                        if (stringStack.size() >=2){
+                            if (Numerico(stringStack.peek()) && Numerico(stringStack.get(stringStack.size() - 2))) {
                         var1 = Double.parseDouble(stringStack.pop());
                         var2 = Double.parseDouble(stringStack.pop());
                         stringStack.push(String.valueOf(var2 - var1));
-
+                        operacionRealizada = true;
+                            }else {
+                                registrarBitacora("No hay suficientes números en la pila para realizar la operación 'sub'");
+                                System.out.println("No hay suficientes números en la pila para realizar la operación 'sub' - Error guardado en la bitacora");
+                            }
+                        }else {
+                            registrarBitacora("No hay suficientes números en la pila para realizar la operación 'sub'");
+                            System.out.println("No hay suficientes números en la pila para realizar la operación 'sub' - Error guardado en la bitacora");
+                        }
                     }
 
                     if (word.equals("div")) { //division
                         entrar = false;
+                        if (stringStack.size() >=2){
+                            if (Numerico(stringStack.peek()) && Numerico(stringStack.get(stringStack.size() - 2))) {
                         var1 = Double.parseDouble(stringStack.pop());
                         var2 = Double.parseDouble(stringStack.pop());
                         stringStack.push(String.valueOf(var1 ));
-
+                        operacionRealizada = true;
+                            }else {
+                                registrarBitacora("No hay suficientes números en la pila para realizar la operación 'div'");
+                                System.out.println("No hay suficientes números en la pila para realizar la operación 'div' - Error guardado en la bitacora");
+                            }
+                        }else {
+                            registrarBitacora("No hay suficientes números en la pila para realizar la operación 'div'");
+                            System.out.println("No hay suficientes números en la pila para realizar la operación 'div' - Error guardado en la bitacora");
+                        }
                     }
 
                     if (word.equals("mul")) { //multiplicacion
                         entrar = false;
+                        if (stringStack.size() >=2){
+                            if (Numerico(stringStack.peek()) && Numerico(stringStack.get(stringStack.size() - 2))) {
                         var1 = Double.parseDouble(stringStack.pop());
                         var2 = Double.parseDouble(stringStack.pop());
                         stringStack.push(String.valueOf(var1 * var2));
-
+                        operacionRealizada = true;
+                            }else {
+                                registrarBitacora("No hay suficientes números en la pila para realizar la operación 'mul'");
+                                System.out.println("No hay suficientes números en la pila para realizar la operación 'mul' - Error guardado en la bitacora");
+                            }
+                        }else {
+                            registrarBitacora("No hay suficientes números en la pila para realizar la operación 'mul'");
+                            System.out.println("No hay suficientes números en la pila para realizar la operación 'mul' - Error guardado en la bitacora");
+                        }
                     }
 
                     if (word.equals("dup")) { //duplicar
                         entrar = false;
+                        if (stringStack.size() >=2){
+                            if (Numerico(stringStack.peek()) && Numerico(stringStack.get(stringStack.size() - 2))) {
                         var1 = Double.parseDouble(stringStack.pop());
                         stringStack.push(String.valueOf(var1));
                         stringStack.push(String.valueOf(var1));
+                        operacionRealizada = true;
+                            }else {
+                                registrarBitacora("No hay suficientes números en la pila para realizar la operación 'dup'");
+                                System.out.println("No hay suficientes números en la pila para realizar la operación 'dup' - Error guardado en la bitacora");
+                            }
+                        }else {
+                            registrarBitacora("No hay suficientes números en la pila para realizar la operación 'dup'");
+                            System.out.println("No hay suficientes números en la pila para realizar la operación 'dup' - Error guardado en la bitacora");
+                        }
                     }
 
                     if (word.equals("exch")) { //intercambiar
                         entrar = false;
+                        if (stringStack.size() >=2){
+                            if (Numerico(stringStack.peek()) && Numerico(stringStack.get(stringStack.size() - 2))) {
                         var1 = Double.parseDouble(stringStack.pop());
                         var2 = Double.parseDouble(stringStack.pop());
                         stringStack.push(String.valueOf(var1));
                         stringStack.push(String.valueOf(var2));
+                        operacionRealizada = true;
+                            }else {
+                                registrarBitacora("No hay suficientes números en la pila para realizar la operación 'exch'");
+                                System.out.println("No hay suficientes números en la pila para realizar la operación 'exch' - Error guardado en la bitacora");
+                            }
+                        }else {
+                            registrarBitacora("No hay suficientes números en la pila para realizar la operación 'exch'");
+                            System.out.println("No hay suficientes números en la pila para realizar la operación 'exch' - Error guardado en la bitacora");
+                        }
                     }
 
                     if (word.equals("pop")) { //pop
+                        if (stringStack.size() >=2){
+                            if (Numerico(stringStack.peek()) && Numerico(stringStack.get(stringStack.size() - 2))) {
                         stringStack.pop();
+                        operacionRealizada = true;
+                            }else {
+                                registrarBitacora("No hay suficientes números en la pila para realizar la operación 'pop'");
+                                System.out.println("No hay suficientes números en la pila para realizar la operación 'pop' - Error guardado en la bitacora");
+                            }
+                        }else {
+                            registrarBitacora("No hay suficientes números en la pila para realizar la operación 'pop'");
+                            System.out.println("No hay suficientes números en la pila para realizar la operación 'pop' - Error guardado en la bitacora");
+                        }
                     }
 
                     if (word.equals("eq")){ // equals
                         entrar = false;
+                        if (stringStack.size() >=2){
+                            if (Numerico(stringStack.peek()) && Numerico(stringStack.get(stringStack.size() - 2))) {
                         var1 = Double.parseDouble(stringStack.pop());
                         var2 = Double.parseDouble(stringStack.pop());
                         if (var1 == var2){
@@ -113,28 +189,42 @@ public class Main {
                         } else {
                             stringStack.push("false");
                         }
-
+                        operacionRealizada = true;
+                            }else {
+                                registrarBitacora("No hay suficientes números en la pila para realizar la operación 'eq'");
+                                System.out.println("No hay suficientes números en la pila para realizar la operación 'eq' - Error guardado en la bitacora");
+                            }
+                        }else {
+                            registrarBitacora("No hay suficientes números en la pila para realizar la operación 'eq'");
+                            System.out.println("No hay suficientes números en la pila para realizar la operación 'eq' - Error guardado en la bitacora");
+                        }
                     }
 
                     if (word.startsWith("/")){
                         definiendoValor = true;
                         nombreDefinicion = word.substring(1, word.length());
+                        operacionRealizada = true;
                     }
 
 
-                    if (word.equals("pstack")){ // Imprime
-                        if (!stringStack.isEmpty()) {
+                    if (word.equals("pstack")){     //Imprime
+                        if (!operacionRealizada){
+                            registrarBitacora("Se escribió 'pstack' sin operaciones previas");
+                            System.out.println("Se escribió 'pstack' sin operaciones previas - Error guardado en la bitacora");
+                        } else if (!stringStack.isEmpty()) {
                             System.out.println(stringStack.peek());
-                        } else {
-                            registrarBitacora("No hay valores en la pila");
-                            System.out.println("No hay valores en la pila");
                         }
 
-                    }
+                    } else
 
                     if (definiciones.containsKey(word)){
                         System.out.println(definiciones.get(word));
 
+                    }
+                    if (Numerico(word)) {
+                        entrar = false;
+                        stringStack.push(word); // Agregar números a la pila
+                        operacionRealizada = true;
                     }
 
 
@@ -147,8 +237,11 @@ public class Main {
                         stringStack.push(word);
 
                     }
-
-
+                    if (!operacionRealizada && !word.equals("pstack") && !definiciones.containsKey(word) && !word.equals("add") && !word.equals("sub") && !word.equals("div")
+                    && !word.equals("mul") && !word.equals("dup") && !word.equals("exch") && !word.equals("pop") && !word.equals("eq")) {
+                        registrarBitacora("Texto inválido: " + word);
+                        System.out.println("Texto inválido: " + word + " - Error guardado en la bitacora");
+                    }
                 } else { //definimos el valor
                     if (!valorYaDefinido) {
                         valorDefinido = Double.parseDouble(word);
@@ -180,6 +273,14 @@ public class Main {
             } catch (IOException e){
                 e.printStackTrace();
             }
+        }
+    }
+    private static boolean Numerico(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }
